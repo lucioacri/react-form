@@ -1,4 +1,5 @@
 import { useState } from "react";
+import MyButton from "./components/MyButton";
 
 function App() {
   const [articlesArray, setArticlesArray] = useState([
@@ -18,12 +19,25 @@ function App() {
     setNewArticle("");
   };
 
+  const handleRemoveByIndex = (deletedIndex) => {
+    const newArticlesArray = articlesArray.filter(
+      (_, index) => index !== deletedIndex
+    );
+    setArticlesArray(newArticlesArray);
+  };
+
+  const handleClickMyButton = (valore) => {
+    console.log("Valore passato dal bottone: " + valore);
+
+    console.log("My button cliccato");
+  };
+
   return (
     <main>
       <div className="container">
         <div className="row">
           <div className="col">
-            <form onSubmit={handleSubmit} className="justify-content-center">
+            <form onSubmit={handleSubmit}>
               <input
                 type="text"
                 className="form-control"
@@ -34,12 +48,23 @@ function App() {
             </form>
           </div>
         </div>
-        <div className="col">
-          <ul>
-            {articlesArray.map((article, index) => (
-              <li key={index}>{article}</li>
-            ))}
-          </ul>
+        <div className="row my-3">
+          <div className="col-4">
+            <ul>
+              {articlesArray.map((article, index) => (
+                <li key={index} className="my-3">
+                  {article}
+                  <button
+                    className="btn btn-danger mx-3"
+                    onClick={(e) => handleRemoveByIndex(index)}
+                  >
+                    Delete article
+                  </button>
+                  <MyButton handleClick={handleClickMyButton} />
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
     </main>
