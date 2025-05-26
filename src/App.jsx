@@ -8,14 +8,22 @@ function App() {
     "sit",
     "amet",
   ]);
+
   const [newArticle, setNewArticle] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const newArticlesArray = [...articlesArray, newArticle];
+    setArticlesArray(newArticlesArray);
+    setNewArticle("");
+  };
 
   return (
     <main>
-      <div className="container text-center">
+      <div className="container">
         <div className="row">
           <div className="col">
-            <form>
+            <form onSubmit={handleSubmit} className="justify-content-center">
               <input
                 type="text"
                 className="form-control"
@@ -25,13 +33,13 @@ function App() {
               <button className="btn btn-primary">Add</button>
             </form>
           </div>
-          <div className="col">
-            <ul>
-              {articlesArray.map((article, index) => (
-                <li key={index}>{article}</li>
-              ))}
-            </ul>
-          </div>
+        </div>
+        <div className="col">
+          <ul>
+            {articlesArray.map((article, index) => (
+              <li key={index}>{article}</li>
+            ))}
+          </ul>
         </div>
       </div>
     </main>
